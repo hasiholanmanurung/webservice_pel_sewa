@@ -15,19 +15,25 @@ import org.springframework.web.server.ResponseStatusException;
 public class PelangganService {
         @Autowired
         private PelangganRepository pelangganRepository;
-
         public List<Pelanggan> getAll(){
             return pelangganRepository.findAll();
-        }
+        }   
 
+        public Pelanggan getPelangganById(Long id) {
+            return pelangganRepository.findById(id).get();
+        }
                 
         public List<Pelanggan> getByEMAIL(String email){
             return pelangganRepository.findByEMAILContainsIgnoreCase(email);
         }
 
-        // public List<Pelanggan> getByNAMA(String nama){
-        //     return pelangganRepository.findByNAMAConstainsIgnoreCase(nama);
-        // }
+        public List<Pelanggan> getByNAMA(String nama){
+            // return pelangganRepository.findByNAMAConstainsIgnoreCase(nama);
+            if (pelangganRepository.findByNAMAContainsIgnoreCase(nama).isEmpty()){
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nama pelanggan belum terdaftar");
+            }
+            return pelangganRepository.findByNAMAContainsIgnoreCase(nama);
+        }
 
         public List<Pelanggan> getByKODEPEL(String kodepel){
             return pelangganRepository.findByKODEPELContainsIgnoreCase(kodepel);
@@ -37,12 +43,12 @@ public class PelangganService {
             Optional<Pelanggan> pelangganOptional = pelangganRepository.findByKODEPEL(pelanggan.getKODEPEL());
             
             if (pelangganOptional.isPresent()){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Pelanggan dengan kodepel yg sama telah ada");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Kode pelanggan telah ada");
     
             }
             else {
                 pelangganRepository.save(pelanggan);
-                throw new ResponseStatusException(HttpStatus.OK, "Pelanggan Berhasil ditambahkan");
+                throw new ResponseStatusException(HttpStatus.OK, "Data Pelanggan Berhasil ditambahkan");
             }
         }
 

@@ -1,16 +1,9 @@
 package com.amartek.pelanggan.repository;
 
-
-
 import java.util.List;
-
-// import java.util.List;
-
 import com.amartek.pelanggan.entity.Pelanggan;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 @Repository
 public interface PelangganRepository extends JpaRepository<Pelanggan, Long> {
 
@@ -20,16 +13,7 @@ public interface PelangganRepository extends JpaRepository<Pelanggan, Long> {
 
     List<Pelanggan> findByKODEPELContainsIgnoreCase(String kodepel);
 
-    // List<Pelanggan> findByNAMAConstainsIgnoreCase(String nama);
-
-    // List<Pelanggan> findByNAMAConstainsIgnoreCase(String nama);
-
-
-    // List<Pelanggan> findByNAMAConstainsIgnoreCase(String nama);
-
-    // List<Pelanggan> findByKODEPELContainsIgnoreCase(String kodepel);
-
-    
+    List<Pelanggan> findByNAMAContainsIgnoreCase(String nama);
 
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import com.amartek.pelanggan.Service.PelangganService;
 import com.amartek.pelanggan.entity.Pelanggan;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,21 +14,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
+@CrossOrigin
 @RestController
 public class PelangganController {
-  private PelangganService pelangganService;
+    private PelangganService pelangganService;
 
     public PelangganController(PelangganService pelangganService){
         this.pelangganService = pelangganService;
     }
-
     // get semua data
     @GetMapping("/get")
     public List<Pelanggan> getAll() {
         return pelangganService.getAll();
     }
   
+    @GetMapping("/getsid/{id}")
+    public Pelanggan getPelangganById(@PathVariable final Long id){
+        return pelangganService.getPelangganById(id);
+    }
+
     // get email
     @GetMapping("get_email/{email}")
     public List<Pelanggan> getByEMAIL(@PathVariable final String email){
@@ -40,10 +45,10 @@ public class PelangganController {
         return pelangganService.getByKODEPEL(kodepel);
     }
 
-    // @GetMapping("get_nama/{nama}")
-    // public List<Pelanggan> getByNAMA(@PathVariable final String nama){
-    //     return pelangganService.getByNAMA(nama);
-    // }
+    @GetMapping("get_nama/{nama}")
+    public List<Pelanggan> getByNAMA(@PathVariable final String nama){
+        return pelangganService.getByNAMA(nama);
+    }
 
     // input data pelanggan baru
     @PostMapping("/create")
@@ -54,7 +59,7 @@ public class PelangganController {
     // menghapus data pelanggan
     @DeleteMapping("/delete/{IdPelanggan}")
     public void deletePelanggan(@PathVariable final Long IdPelanggan){
-            pelangganService.deletePelanggan(IdPelanggan);
+        pelangganService.deletePelanggan(IdPelanggan);
     }
 
 

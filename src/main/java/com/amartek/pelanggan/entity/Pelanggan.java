@@ -31,11 +31,11 @@ public class Pelanggan {
     private String EMAIL;
 
 
-    public long getID(){
+    public Long getID(){
         return this.ID;
     }
 
-    public void setID(long ID){
+    public void setID(Long ID){
         this.ID = ID;
     }
 
